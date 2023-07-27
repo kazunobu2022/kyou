@@ -1,0 +1,36 @@
+# APIのバージョンを指定する
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-app                   # Deploymentの名前
+  labels:
+    app: sample-app                  # Deploymentのラベル
+spec:                                # Deploymentの詳細定義
+  replicas: 2                        # ReplicaSetの指定
+  selector:
+    matchLabels:                     # Deploymentが管理するPodのラベルを定義
+      app: sample-app
+  template:                          # Deploymentを通してPodを定義する場所(Podテンプレート)
+    metadata:
+      labels:                        # Podのラベル
+        app: sample-app
+    spec:
+      containers:
+        - name: sample-app           # Podのコンテナ名
+          image: 748978112792.dkr.ecr.ap-northeast-1.amazonaws.com/hello-eks:latest:latest          # 取得したいコンテナイメージ
+          imagePullPolicy: Always    # コンテナを起動する度に、コンテナイメージレジストリに問い合わせて起動する
+          ports:                     # Podのポート番号
+          - containerPort: 8080
+          readinessProbe:            # Pod内のコンテナが正常に動作しているかの確認。異常の時は、Podを再起動する
+            httpGet:
+              port: 8080
+              path: /health
+            initialDelaySeconds: 15  # 起動後、15秒後からreadinessProbeを開始
+            periodSeconds: 30        # 30秒間間隔でチェックを行う
+          resources:                  
+            requests:                # 使用するリソースの下限の指定。空きのスペックにリソースがない場合は、作成されない
+              cpu: 100m
+              memory: 512Mi
+            limits:                  # 使用するリソースの上限の指定。
+              cpu: 250m
+              memory: 768Mi
