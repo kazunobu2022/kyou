@@ -17,7 +17,7 @@ spec:                                # Deploymentの詳細定義
     spec:
       containers:
         - name: sample-app           # Podのコンテナ名
-          image: 748978112792.dkr.ecr.ap-northeast-1.amazonaws.com/hello-eks:latest:latest          # 取得したいコンテナイメージ
+          image: 748978112792.dkr.ecr.ap-northeast-1.amazonaws.com/hello-eks:latest          # 取得したいコンテナイメージ
           imagePullPolicy: Always    # コンテナを起動する度に、コンテナイメージレジストリに問い合わせて起動する
           ports:                     # Podのポート番号
           - containerPort: 8080
