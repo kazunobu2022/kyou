@@ -6,7 +6,7 @@ metadata:
   labels:
     app: sample-app                  # Deploymentのラベル
 spec:                                # Deploymentの詳細定義
-  replicas: 2                        # ReplicaSetの指定
+  replicas: 1                        # ReplicaSetの指定
   selector:
     matchLabels:                     # Deploymentが管理するPodのラベルを定義
       app: sample-app

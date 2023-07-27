@@ -4,6 +4,7 @@ metadata:
   name: sample-service
 spec:
   type: LoadBalancer
+  # deployment.yamlで指定したmatchLabelsの文字列と同じものを指定する必要があります。
   selector:
     app: sample-app
   ports:
